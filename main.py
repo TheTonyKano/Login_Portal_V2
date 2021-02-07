@@ -68,7 +68,7 @@ def main_menu(): # Main Menu and Selection Menu
         else:
             while True:
                 if main_user_input == "1":
-                    account_management.db_username_check()
+                    account_management.db_username_check(database)
                 elif main_user_input == "2":
                     create_account()
                 elif main_user_input == "3":
@@ -77,7 +77,7 @@ def main_menu(): # Main Menu and Selection Menu
                     exit_application()
                 else:
                     selection_menu_incorrect(main_menu_option_list)
-            break
+                    break
 
 def create_account():
     db_management.check_db_file()
@@ -110,7 +110,7 @@ def create_account():
 #                else:
 #                    selection_menu_incorrect(main_option_list)
 #                    continue
-#            break
+#                   break
 
 
 

@@ -47,24 +47,24 @@ def create_username_section(database):
 
 def create_password_section():
     # Create Password
-    create_password = getpass("Enter password: ")
-    hashed1 = encrypt_password(create_password)
-    verify_password = getpass("Enter password to verify: ")
-    hashed2 = encrypt_password(verify_password)
-    while True:
-        # If the first password equals the second password display that the password matches then
-        # continue to the next part
-        if hashed1 == hashed2:
-            print("Password matches")
-            return  hashed1
-        else:
-            # If the passwords do not match, have the user retry until password matches
-            print("Password does not match. Please retry")
-            create_password = getpass("Enter password: ")
-            hashed1 = encrypt_password(create_password)
-            verify_password = getpass("Enter password to verify: ")
-            hashed2 = encrypt_password(verify_password)
-            continue
+    create_password = password_hashing.encrypt_password(getpass("Enter password: "))
+    verify_password = getpass("Enter password again: ")
+    if password_hashing.verify_passwords(verify_password, create_password) != True:
+            while True:
+                # If the first password equals the second password display that the password matches then
+                # continue to the next part
+                if password_hashing.verify_passwords(verify_password, create_password) == True:
+                    print("Password matches")
+                    return  create_password
+                else:
+                    # If the passwords do not match, have the user retry until password matches
+                    print("Password does not match. Please retry")
+                    create_password = password_hashing.encrypt_password(getpass("Enter password: "))
+                    verify_password = getpass("Enter password again: ")
+                    continue
+    else:
+        print("Password matches")
+        return create_password
 
 
 def enter_first_name():
@@ -102,7 +102,7 @@ def db_username_check(database):
         return
     else:
         print("The username you have entered is incorrect")
-        db_username_check()
+        db_username_check(database)
 
 
 def db_password_check(username, database):
@@ -119,7 +119,7 @@ def db_password_check(username, database):
             if password_count == password_attempts:
                 print("Too many attempts detected")
                 time.sleep(password_timeout)
-                db_username_check()
+                db_username_check(database)
             else:
                 print("")
             continue

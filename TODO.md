@@ -1,5 +1,4 @@
 Forget Password
-
 	Multiple forms of Identification
 
 		- Username (What if... User does not remember username)
@@ -9,9 +8,9 @@ Forget Password
 
 	function to change old password to password n += 1 upto 10
 
-	update password creation date and time
+	update password creation date and time - Done
 
-	then update and save the database 
+	then update and save the database  -Done
 
 	(Future) 
 		Send email to user with password reset steps
