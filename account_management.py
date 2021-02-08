@@ -110,7 +110,7 @@ def db_password_check(username, database):
         user_password = getpass("Please enter your password:")
         userinfo_grab = database.get(username)
         password_grab = userinfo_grab.get('Password')
-        if user_password == password_grab:
+        if password_hashing.verify_passwords(user_password, password_grab) == True:
             return
         else:
             print("Incorrect Password")
