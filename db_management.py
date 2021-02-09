@@ -36,6 +36,12 @@ def email_to_db(email_address_output, username_input):
     username_db[username_input]['Email_Address'] = email_address_output
     output_db_to_file(username_db)
 
+def usernameIdentity(unIdentity, username_input): 
+    username_db[username_input]['UsernameIdentity'] = unIdentity
+    todays_date = str(date.today())
+    username_db[username_input]['UsernameIdentity Creation Date'] = str(todays_date)
+    output_db_to_file(username_db)
+
 
 def output_db_to_file(un_dict): # Write Dictionary Memory to file
     with open('userDB.json', 'w') as temp_dict:

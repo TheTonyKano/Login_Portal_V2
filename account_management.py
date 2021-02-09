@@ -111,7 +111,7 @@ def db_password_check(username, database):
         userinfo_grab = database.get(username)
         password_grab = userinfo_grab.get('Password')
         if password_hashing.verify_passwords(user_password, password_grab) == True:
-            return
+            return username
         else:
             print("Incorrect Password")
             global password_count
@@ -124,3 +124,14 @@ def db_password_check(username, database):
                 print("")
             continue
 
+def usernameChange(username, database):
+    user_password = input("Please enter your password to verify that you would like to change your username: ")
+    password_grab = database.get(username).get('Password')
+    if password_hashing.verify_passwords(user_password, password_grab) == True:
+        newUserName = input("Please enter a username that you would like to change to: ")
+
+def usernameIdentity(username, database):
+    print("This process will allow you to change the capitolization of your username. You can not add or remove any characters from your username.")
+    modified_username = input("Please enter the username you would like to modify to: ")
+    if username.lower() == modified_username.lower():
+        pass

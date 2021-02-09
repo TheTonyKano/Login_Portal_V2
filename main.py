@@ -6,6 +6,7 @@ import time
 # Variables
 main_menu_option_list = ["Login", "Create an Account", "Forgot Password/ Username", "Exit Main Menu"]
 forgot_main_opt_lst = ["Forgot Username", "Forgot Password"]
+accountManagementLst = ["Change Username Identity", "Change Username", "Change Password", "Update Email Address"]
 main_user_input = ""
 user_input = ""
 database = db_management.username_db
@@ -51,8 +52,8 @@ def main_menu(): # Main Menu and Selection Menu
     while True:
         selection_menu(main_menu_option_list)
         if main_user_input == "1":
-            account_management.db_username_check(database)
-            logged_in()
+            username = account_management.db_username_check(database)
+            logged_in(username)
         elif main_user_input == "2":
             create_account()
         elif main_user_input == "3":
@@ -67,8 +68,9 @@ def main_menu(): # Main Menu and Selection Menu
             exit_application()
         else:
             while True:
+                selection_menu_incorrect(main_menu_option_list)
                 if main_user_input == "1":
-                    account_management.db_username_check(database)
+                    username = account_management.db_username_check(database)
                 elif main_user_input == "2":
                     create_account()
                 elif main_user_input == "3":
@@ -76,8 +78,7 @@ def main_menu(): # Main Menu and Selection Menu
                 elif main_user_input == "4":
                     exit_application()
                 else:
-                    selection_menu_incorrect(main_menu_option_list)
-                    break
+                    continue
 
 def create_account():
     db_management.check_db_file()
@@ -88,7 +89,6 @@ def create_account():
     lastname_input = account_management.enter_last_name()
     email_address = account_management.enter_email_address()
     db_management.create_account(username_input, password_input, firstname_input, lastname_input, email_address)
-    
     print("Your account has been created.")
     time.sleep(10)
     main_menu()
@@ -114,12 +114,47 @@ def create_account():
 
 
 
-def logged_in():
+def logged_in(username):
     print("You have logged in")
     time.sleep(10)
     print("\n" * 100)
+    acctManagmentInterface(username)
     
-
+def acctManagmentInterface(username):
+    print("\n" * 100)
+    while True:
+        selection_menu(accountManagementLst)
+        if main_user_input == "1":
+            account_management.usernameIdentity(username, database)
+            #TODO   #   Change Username Identity
+            pass
+        elif main_user_input == "2":
+            #TODO   #   Change Username
+            pass
+        elif main_user_input == "3":
+            #TODO   #   Change Password
+            pass
+        elif main_user_input == "4":
+            pass #TODO  #   Update Email Address
+            
+        else:
+            while True:
+                selection_menu_incorrect(accountManagementLst)
+                if main_user_input == "1":
+                    #   Change Username Identity
+                    pass
+                elif main_user_input == "2":
+                    #   Change Username
+                    pass
+                elif main_user_input == "3":
+                    #   Change Password
+                    pass
+                elif main_user_input == "4":
+                    #   Update Email Address
+                    pass
+                else:
+                    continue
+                    
 
 # ----------------------------------------
 # Script Starts here
