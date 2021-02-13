@@ -1,3 +1,4 @@
+from account_management import passwordUpdateList
 import account_management
 import db_management
 import time
@@ -90,7 +91,6 @@ def create_account():
     email_address = account_management.enter_email_address()
     db_management.create_account(username_input, password_input, firstname_input, lastname_input, email_address)
     print("Your account has been created.")
-    time.sleep(10)
     main_menu()
     
     
@@ -116,7 +116,6 @@ def create_account():
 
 def logged_in(username):
     print("You have logged in")
-    time.sleep(10)
     print("\n" * 100)
     acctManagmentInterface(username)
     
@@ -133,7 +132,7 @@ def acctManagmentInterface(username):
             pass
         elif main_user_input == "3":
             #TODO   #   Change Password
-            pass
+            account_management.passwordUpdateList(username) 
         elif main_user_input == "4":
             pass #TODO  #   Update Email Address
             
@@ -142,13 +141,14 @@ def acctManagmentInterface(username):
                 selection_menu_incorrect(accountManagementLst)
                 if main_user_input == "1":
                     #   Change Username Identity
+                    account_management.usernameIdentity(username, database)
                     pass
                 elif main_user_input == "2":
                     #   Change Username
                     pass
                 elif main_user_input == "3":
                     #   Change Password
-                    pass
+                    account_management.passwordUpdateList(username) 
                 elif main_user_input == "4":
                     #   Update Email Address
                     pass
