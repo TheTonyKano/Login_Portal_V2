@@ -18,8 +18,8 @@ def username_to_db(username_output):
     output_db_to_file(username_db)
     
 
-def password_to_db(password_output, username_input): 
-    username_db[username_input]['Password'] = password_output
+def password_to_db(passwordList_output, username_input): 
+    username_db[username_input]['Password'] = passwordList_output
     todays_date = str(date.today())
     username_db[username_input]['Password Creation Date'] = str(todays_date)
     output_db_to_file(username_db)
@@ -41,6 +41,7 @@ def usernameIdentity(unIdentity, username_input):
     todays_date = str(date.today())
     username_db[username_input]['UsernameIdentity Creation Date'] = str(todays_date)
     output_db_to_file(username_db)
+
 
 
 def output_db_to_file(un_dict): # Write Dictionary Memory to file
