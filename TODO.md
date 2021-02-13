@@ -6,12 +6,6 @@ Forget Password
 		- First Name
 		- Last Name
 
-	function to change old password to password n += 1 upto 10
-
-	update password creation date and time - Done
-
-	then update and save the database  -Done
-
 	(Future) 
 		Send email to user with password reset steps
 
@@ -21,9 +15,3 @@ Forgot Username
 		- Email Address
 		- First Name
 		- Last Name
-
-	function to change old password to password n += 1 upto 10
-
-	update password creation date and time
-
-	then update and save the database 
