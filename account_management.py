@@ -1,7 +1,7 @@
 from getpass import getpass
 import password_hashing
 import time
-
+import db_management
 
 username_db = {}
 username = ""
@@ -13,6 +13,7 @@ password_output = ""
 firstname_input = ""
 lastname_output = ""
 email_address_output = ""
+pwdHistoryLimit = 12
 
 
 
@@ -55,6 +56,8 @@ def create_password_section():
                 # continue to the next part
                 if password_hashing.verify_passwords(verify_password, create_password) == True:
                     print("Password matches")
+                    empty_List = ["" for i in range(pwdHistoryLimit)]
+                    empty_List[0] = create_password
                     return  create_password
                 else:
                     # If the passwords do not match, have the user retry until password matches
@@ -64,7 +67,9 @@ def create_password_section():
                     continue
     else:
         print("Password matches")
-        return create_password
+        empty_List = ["" for i in range(pwdHistoryLimit)]
+        empty_List[0] = create_password
+        return empty_List
 
 
 def enter_first_name():
@@ -109,7 +114,8 @@ def db_password_check(username, database):
     while True:
         user_password = getpass("Please enter your password:")
         userinfo_grab = database.get(username)
-        password_grab = userinfo_grab.get('Password')
+        password_List = userinfo_grab.get('Password')
+        password_grab = password_List[0]
         if password_hashing.verify_passwords(user_password, password_grab) == True:
             return username
         else:
@@ -124,6 +130,10 @@ def db_password_check(username, database):
                 print("")
             continue
 
+
+#   Individual Account Management
+
+
 def usernameChange(username, database):
     user_password = input("Please enter your password to verify that you would like to change your username: ")
     password_grab = database.get(username).get('Password')
@@ -135,3 +145,21 @@ def usernameIdentity(username, database):
     modified_username = input("Please enter the username you would like to modify to: ")
     if username.lower() == modified_username.lower():
         pass
+
+
+def passwordUpdateList(username):
+    newPwdList = ["" for i in range(pwdHistoryLimit)]
+    database = db_management.load_userdb()
+    oldPwd = getpass("Please enter old password: ")
+    if password_hashing.verify_passwords(oldPwd, database[username]["Password"][0]) == True:
+        pwd = create_password_section() 
+        oldPwdList = database[username]['Password']
+        #   Rotates password for chronological storage
+        newPwdList[0], newPwdList[1], newPwdList[2], newPwdList[3], newPwdList[4], newPwdList[5], newPwdList[6], newPwdList[7], newPwdList[8], newPwdList[9] = pwd[0], oldPwdList[0], oldPwdList[1], oldPwdList[2], oldPwdList[3], oldPwdList[4], oldPwdList[5], oldPwdList[6], oldPwdList[7], oldPwdList[8]
+        db_management.password_to_db(newPwdList, username)    
+    else:  
+        passwordUpdateList(username)
+   
+
+
+    
